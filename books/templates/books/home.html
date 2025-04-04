@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to My Library</title>
+    <link rel="stylesheet" href="{% static 'books/style.css' %}">
+</head>
+<body class="home-page">
+    <div class="hero-container">
+        <h1>📚 Book Haven</h1>
+        <p class="quote">“I am no bird; and no net ensnares me: I am a free human being with an independent will.”</p>
+        <p class="author">— Charlotte Brontë, <em>Jane Eyre</em></p>
+        <a class="to-books-btn" href="{% url 'book_list' %}">→ Explore Library</a>
+    </div>
+</body>
+</html>

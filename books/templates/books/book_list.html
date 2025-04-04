@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Books Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'books/style.css' %}">
+</head>
+<body class="home-page">
+    <div class="book-of-the-day-link">
+        <a href="{% url 'book_of_the_day' %}">📖 See the Book of the Day</a>
+    </div>
+    
+    {% if user.is_authenticated %}
+    <p>Привіт, {{ user.username }}! <a href="{% url 'logout' %}">Вийти</a></p>
+  {% else %}
+    <a href="{% url 'login' %}">Увійти</a> | <a href="{% url 'signup' %}">Реєстрація</a>
+  {% endif %}
+
+    <h1>Books List</h1>
+
+    <div class="search-wrapper">
+        <input type="text" id="search-input" placeholder="Books search...">
+    </div>
+    {% if user.is_authenticated and user.email == "marusjakarassmaria789@gmail.com" %}
+    <div class="add-book-btn-wrapper">
+        <a href="{% url 'book_add' %}" class="add-book-btn">+ Add Book</a>
+    </div>
+    {% endif %}
+    <ul id="book-list">
+        {% for book in books %}
+        <li>
+            <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> – 
+            <span class="book-author">{{ book.author }}</span>
+        </li>
+        {% empty %}
+        <li>No books to show.</li>
+        {% endfor %}
+    </ul>
+    <script src="{% static 'books/js/search.js' %}"></script> 
+</body>
+</html>

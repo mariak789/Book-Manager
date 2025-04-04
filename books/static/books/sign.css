@@ -1,0 +1,36 @@
+.auth-container {
+    max-width: 400px;
+    margin: 80px auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  }
+  
+  .auth-container h2 {
+    text-align: center;
+    font-family: 'Georgia', serif;
+    color: #3b2f1d;
+    margin-bottom: 20px;
+  }
+  
+  .auth-container .btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #5f4b36;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  
+  .auth-container .btn:hover {
+    background-color: #7a5d44;
+  }
+  
+  .auth-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+  }

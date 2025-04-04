@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ book.title }}</title>
+    <link rel="stylesheet" href="{% static 'books/style.css' %}">
+</head>
+<body class="detail-page">
+    <div class="book-detail">
+        <h1>{{ book.title }}</h1>
+        <p><strong>Author:</strong> {{ book.author }}</p>
+        {% if book.published_date %}
+            <p><strong>Date of publication:</strong> {{ book.published_date|date:"d.m.Y" }}</p>
+        {% endif %}
+        {% if book.cover %}
+            <div class="book-cover">
+                <img src="{{ book.cover.url }}" alt="{{ book.title }} picture" style="max-width: 300px;">
+            </div>
+        {% endif %}
+        {% if book.description %}
+            <div class="description">
+                <p>{{ book.description }}</p>
+            </div>
+        {% endif %}
+        <p> <strong>Average rating:</strong> <span id="avg-rating">{{ book.average_rating }}</span></p>
+
+        <div class="rating-form">
+            <p>Review this book:</p>
+            <div class="rating-stars-wrapper">
+                <div class="rating-stars" data-selected="0" data-url="{% url 'submit_rating' book.id %}">
+                    {% for i in "12345" %}
+                        <span class="star" data-value="{{ forloop.counter }}">&#9734;</span>
+                    {% endfor %}
+                </div>
+                <p class="average-rating-text">Average rating: <span id="avg-rating">{{ book.average_rating }}</span></p>
+            </div>
+            <form style="display:none;">{% csrf_token %}</form>
+        </div>
+        <p><a href="{% url 'book_list' %}">Return to book list</a></p>
+    </div>
+    <script src="{% static 'books/js/rating.js' %}"></script>
+</body>
+</html>

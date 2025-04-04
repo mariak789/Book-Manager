@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if form.instance.pk %}Edit Book{% else %}Add Book{% endif %}</title>
+    <link rel="stylesheet" href="{% static 'books/forms.css' %}">
+</head>
+<body class="form-page">
+    <div class="form-container">
+        <h1>{% if form.instance.pk %}Edit Book{% else %}Add Book{% endif %}</h1>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="submit-btn">Save</button>
+        </form>
+
+        <p><a class="back-link" href="{% url 'book_list' %}">← Back to books</a></p>
+    </div>
+</body>
+</html>

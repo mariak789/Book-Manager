@@ -1,0 +1,48 @@
+body.home-page {
+    background: url("/static/books/images/your_background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: #f2e0b7;
+    font-family: 'Cormorant Garamond', serif;
+    margin: 0;
+    padding: 0;
+}
+
+.hero-container {
+    text-align: center;
+    padding: 100px 30px;
+    background: rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    margin: 100px auto;
+    border-radius: 16px;
+}
+
+.hero-container h1 {
+    font-size: 56px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 3px black;
+}
+
+.quote {
+    font-size: 24px;
+    margin: 30px 0 10px;
+    font-style: italic;
+}
+
+.author {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.to-books-btn {
+    background-color: #3e3e3e;
+    color: #f2e0b7;
+    padding: 12px 30px;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.to-books-btn:hover {
+    background-color: #5c5c5c;
+}

@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book of the Day</title>
+    <link rel="stylesheet" href="{% static 'books/style.css' %}">
+</head>
+<body class="book-of-the-day-page">
+    <div class="book-of-day-container">
+    <div class="book-detail">
+        <h1>Book of the Day</h1>
+        {% if book %}
+            <h2>{{ book.title }}</h2>
+            <p><strong>Author:</strong> {{ book.author }}</p>
+            {% if book.published_date %}
+                <p><strong>Published:</strong> {{ book.published_date }}</p>
+            {% endif %}
+            {% if book.cover %}
+                <div class="book-cover">
+                    <img src="{{ book.cover.url }}" alt="{{ book.title }} cover" style="max-width: 300px;">
+                </div>
+            {% endif %}
+            {% if book.description %}
+                <p>{{ book.description }}</p>
+            {% endif %}
+            {% if book.quote %}
+    <blockquote class="book-quote">“{{ book.quote }}”</blockquote>
+            {% endif %}
+            <p><a href="{% url 'book_detail' book.id %}">View full details →</a></p>
+        {% else %}
+            <p>No books available yet.</p>
+        {% endif %}
+        <p><a href="{% url 'book_list' %}">← Back to all books</a></p>
+        </div>
+    </div>
+</body>
+</html>
