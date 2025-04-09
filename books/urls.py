@@ -1,6 +1,14 @@
 from django.urls import path
 from . import views
 from .views import BookCreateView, BookUpdateView
+from rest_framework.routers import DefaultRouter
+from .views import BookViewSet
+
+router=DefaultRouter()
+router.register(r'books', BookViewSet)
+
+urlpatterns = router.urls
+
 
 
 urlpatterns = [
@@ -12,5 +20,4 @@ urlpatterns = [
     path('<int:pk>/edit/', BookUpdateView.as_view(), name='book_edit'),
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
-    path('logout/', views.logout_view, name='logout'), 
 ]

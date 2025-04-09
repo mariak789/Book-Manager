@@ -15,7 +15,7 @@
     {% if user.is_authenticated %}
     <p>Привіт, {{ user.username }}! <a href="{% url 'logout' %}">Вийти</a></p>
   {% else %}
-    <a href="{% url 'login' %}">Увійти</a> | <a href="{% url 'signup' %}">Реєстрація</a>
+    <a href="{% url 'login' %}">Увійти</a> | <a href="{% url 'register' %}">Реєстрація</a>
   {% endif %}
 
     <h1>Books List</h1>

@@ -12,7 +12,25 @@ from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy
 from .forms import BookForm
 from django.contrib.auth import authenticate, login
-from .forms import UserLoginForm
+from .forms import UserLoginForm, UserCreationForm
+from rest_framework import viewsets
+from .serializers import BookSerializer
+
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})
 
 def user_login(request):
     if request.method == 'POST':
