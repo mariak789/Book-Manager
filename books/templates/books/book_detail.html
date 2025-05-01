@@ -1,44 +1,65 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>{{ book.title }}</title>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>{{ book.title }} — Books Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'books/style.css' %}">
 </head>
 <body class="detail-page">
-    <div class="book-detail">
-        <h1>{{ book.title }}</h1>
-        <p><strong>Author:</strong> {{ book.author }}</p>
+
+    <header>
+        <nav>
+            <a href="{% url 'book_list' %}">Головна</a> |
+            <a href="{% url 'book_of_the_day' %}">Книга дня</a> |
+            {% if user.is_authenticated %}
+                Привіт, {{ user.username }}!
+                <a href="{% url 'logout' %}">Вийти</a>
+            {% else %}
+                <a href="{% url 'login' %}">Увійти</a> |
+                <a href="{% url 'register' %}">Реєстрація</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="book-detail">
+        <h1 class="book-title">{{ book.title }}</h1>
+        <p class="book-author"><strong>Автор:</strong> {{ book.author }}</p>
+        
         {% if book.published_date %}
-            <p><strong>Date of publication:</strong> {{ book.published_date|date:"d.m.Y" }}</p>
+            <p class="book-pubdate"><strong>Дата публікації:</strong> {{ book.published_date|date:"d.m.Y" }}</p>
         {% endif %}
+        
         {% if book.cover %}
             <div class="book-cover">
-                <img src="{{ book.cover.url }}" alt="{{ book.title }} picture" style="max-width: 300px;">
+                <img src="{{ book.cover.url }}" alt="Обкладинка {{ book.title }}">
             </div>
         {% endif %}
+        
         {% if book.description %}
-            <div class="description">
+            <section class="book-description">
+                <h2>Опис</h2>
                 <p>{{ book.description }}</p>
-            </div>
+            </section>
         {% endif %}
-        <p> <strong>Average rating:</strong> <span id="avg-rating">{{ book.average_rating }}</span></p>
 
-        <div class="rating-form">
-            <p>Review this book:</p>
-            <div class="rating-stars-wrapper">
-                <div class="rating-stars" data-selected="0" data-url="{% url 'submit_rating' book.id %}">
-                    {% for i in "12345" %}
-                        <span class="star" data-value="{{ forloop.counter }}">&#9734;</span>
-                    {% endfor %}
-                </div>
-                <p class="average-rating-text">Average rating: <span id="avg-rating">{{ book.average_rating }}</span></p>
+        <section class="rating-section">
+            <h2>Оцініть цю книгу</h2>
+            <div class="rating-stars" data-url="{% url 'submit_rating' book.id %}" data-selected="0">
+                {% for _ in "12345" %}
+                    <span class="star" data-value="{{ forloop.counter }}">&#9734;</span>
+                {% endfor %}
             </div>
-            <form style="display:none;">{% csrf_token %}</form>
-        </div>
-        <p><a href="{% url 'book_list' %}">Return to book list</a></p>
-    </div>
+            <p class="average-rating">
+                Середній рейтинг: <span id="avg-rating">{{ book.average_rating }}</span>
+            </p>
+        </section>
+
+        <p><a href="{% url 'book_list' %}" class="back-link">← Повернутися до списку книг</a></p>
+    </main>
+
     <script src="{% static 'books/js/rating.js' %}"></script>
 </body>
 </html>

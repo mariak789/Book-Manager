@@ -22,9 +22,7 @@ from books.views import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('books/', include('books.urls')),
-    path('', include('books.urls')),
-    path('', home, name='home'),
+    path('', include('books.urls')), 
 ]
 
 if settings.DEBUG:

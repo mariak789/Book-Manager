@@ -1,22 +1,82 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>{% if form.instance.pk %}Edit Book{% else %}Add Book{% endif %}</title>
-    <link rel="stylesheet" href="{% static 'books/forms.css' %}">
+    <title>
+        {% if form.instance.pk %}Редагувати книгу{% else %}Додати книгу{% endif %} — Books Manager
+    </title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'books/style.css' %}">
 </head>
 <body class="form-page">
-    <div class="form-container">
-        <h1>{% if form.instance.pk %}Edit Book{% else %}Add Book{% endif %}</h1>
 
-        <form method="post" enctype="multipart/form-data">
+    <header>
+        <nav>
+            <a href="{% url 'book_list' %}">Головна</a> |
+            <a href="{% url 'book_of_the_day' %}">Книга дня</a> |
+            {% if user.is_authenticated %}
+                Привіт, {{ user.username }}!
+                <a href="{% url 'logout' %}">Вийти</a>
+            {% else %}
+                <a href="{% url 'login' %}">Увійти</a> |
+                <a href="{% url 'register' %}">Реєстрація</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="book-form-container">
+        <h1>
+            {% if form.instance.pk %}Редагувати книгу{% else %}Додати книгу{% endif %}
+        </h1>
+
+        <form method="post" enctype="multipart/form-data" class="book-form">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="submit-btn">Save</button>
+            {{ form.non_field_errors }}
+
+            <div class="form-field">
+                {{ form.title.label_tag }}
+                {{ form.title }}
+                {{ form.title.errors }}
+            </div>
+
+            <div class="form-field">
+                {{ form.author.label_tag }}
+                {{ form.author }}
+                {{ form.author.errors }}
+            </div>
+
+            <div class="form-field">
+                {{ form.published_date.label_tag }}
+                {{ form.published_date }}
+                {{ form.published_date.errors }}
+            </div>
+
+            <div class="form-field">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+
+            <div class="form-field">
+                {{ form.cover.label_tag }}
+                {{ form.cover }}
+                {{ form.cover.errors }}
+            </div>
+
+            <div class="form-field">
+                {{ form.quote.label_tag }}
+                {{ form.quote }}
+                {{ form.quote.errors }}
+            </div>
+
+            <button type="submit" class="btn-save">
+                {% if form.instance.pk %}Зберегти{% else %}Додати{% endif %}
+            </button>
         </form>
 
-        <p><a class="back-link" href="{% url 'book_list' %}">← Back to books</a></p>
-    </div>
+        <p><a href="{% url 'book_list' %}" class="back-link">← Повернутися до списку книг</a></p>
+    </main>
+
 </body>
 </html>

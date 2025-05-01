@@ -3,41 +3,60 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Books Manager</title>
+    <title>Books Manager — Список книг</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'books/style.css' %}">
 </head>
 <body class="home-page">
-    <div class="book-of-the-day-link">
-        <a href="{% url 'book_of_the_day' %}">📖 See the Book of the Day</a>
-    </div>
-    
-    {% if user.is_authenticated %}
-    <p>Привіт, {{ user.username }}! <a href="{% url 'logout' %}">Вийти</a></p>
-  {% else %}
-    <a href="{% url 'login' %}">Увійти</a> | <a href="{% url 'register' %}">Реєстрація</a>
-  {% endif %}
 
-    <h1>Books List</h1>
+    <header>
+        <nav>
+            <a href="{% url 'book_list' %}">Головна</a> |
+            <a href="{% url 'book_of_the_day' %}">Книга дня</a> |
+            {% if user.is_authenticated %}
+                Привіт, {{ user.username }}!
+                <a href="{% url 'logout' %}">Вийти</a>
+            {% else %}
+                <a href="{% url 'login' %}">Увійти</a> |
+                <a href="{% url 'register' %}">Реєстрація</a>
+            {% endif %}
+        </nav>
+    </header>
 
-    <div class="search-wrapper">
-        <input type="text" id="search-input" placeholder="Books search...">
-    </div>
-    {% if user.is_authenticated and user.email == "marusjakarassmaria789@gmail.com" %}
-    <div class="add-book-btn-wrapper">
-        <a href="{% url 'book_add' %}" class="add-book-btn">+ Add Book</a>
-    </div>
-    {% endif %}
-    <ul id="book-list">
-        {% for book in books %}
-        <li>
-            <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> – 
-            <span class="book-author">{{ book.author }}</span>
-        </li>
-        {% empty %}
-        <li>No books to show.</li>
-        {% endfor %}
-    </ul>
-    <script src="{% static 'books/js/search.js' %}"></script> 
+    <main>
+        <h1>Список книг</h1>
+
+        <div class="search-wrapper">
+            <input
+                type="text"
+                id="search-input"
+                placeholder="Пошук книг..."
+                class="search-input"
+            >
+            <button type="button" class="search-btn">🔍</button>
+        </div>
+
+        {% if user.is_authenticated and user.email == "marusjakarassmaria789@gmail.com" %}
+            <div class="add-book-btn-wrapper">
+                <a href="{% url 'book_add' %}" class="add-book-btn">+ Додати книгу</a>
+            </div>
+        {% endif %}
+
+        <ul id="book-list" class="book-list">
+            {% for book in books %}
+                <li class="book-item">
+                    <a href="{% url 'book_detail' book.pk %}" class="book-title">
+                        {{ book.title }}
+                    </a>
+                    <span class="book-author">— {{ book.author }}</span>
+                    <span class="book-rating">(⭐ {{ book.average_rating }})</span>
+                </li>
+            {% empty %}
+                <li class="no-books">Немає доступних книг.</li>
+            {% endfor %}
+        </ul>
+    </main>
+
+    <script src="{% static 'books/js/search.js' %}"></script>
 </body>
 </html>

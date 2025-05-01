@@ -1,14 +1,16 @@
-console.log("Search script loaded!");
-document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.getElementById('search-input');
-    const bookList = document.getElementById('book-list');
-    const allBooks = Array.from(bookList.getElementsByTagName('li'));
-  
-    searchInput.addEventListener('input', function () {
-      const query = this.value.toLowerCase();
-      allBooks.forEach(function (book) {
-        const text = book.textContent.toLowerCase();
-        book.style.display = text.includes(query) ? '' : 'none';
-      });
+// static/books/js/search.js
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('search-input');
+  if (!searchInput) return;
+
+  const items = Array.from(document.querySelectorAll('#book-list li'));
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+    items.forEach(item => {
+      const title = item.querySelector('.book-title')?.textContent.toLowerCase() || '';
+      const author = item.querySelector('.book-author')?.textContent.toLowerCase() || '';
+      item.style.display = (title + ' ' + author).includes(query) ? '' : 'none';
     });
   });
+});

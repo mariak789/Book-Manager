@@ -3,20 +3,20 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Реєстрація — Books Manager</title>
+    <title>Увійти — Books Manager</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'books/style.css' %}">
+    <link rel="stylesheet" href="{% static 'books/css/login.css' %}">
 </head>
 <body class="auth-page">
     <header>
         <nav>
             <a href="{% url 'book_list' %}">Головна</a> |
-            <a href="{% url 'login' %}">Увійти</a>
+            <a href="{% url 'register' %}">Реєстрація</a>
         </nav>
     </header>
 
     <main class="auth-container">
-        <h1>Реєстрація</h1>
+        <h1>Увійти</h1>
         <form method="post" class="auth-form">
             {% csrf_token %}
             {{ form.non_field_errors }}
@@ -26,23 +26,13 @@
                 {{ form.username.errors }}
             </div>
             <div class="form-field">
-                {{ form.email.label_tag }}<br>
-                {{ form.email }}
-                {{ form.email.errors }}
-            </div>
-            <div class="form-field">
                 {{ form.password.label_tag }}<br>
                 {{ form.password }}
                 {{ form.password.errors }}
             </div>
-            <div class="form-field">
-                {{ form.password_confirmation.label_tag }}<br>
-                {{ form.password_confirmation }}
-                {{ form.password_confirmation.errors }}
-            </div>
-            <button type="submit" class="btn-save">Зареєструватися</button>
+            <button type="submit" class="btn-save">Увійти</button>
         </form>
-        <p>Вже є акаунт? <a href="{% url 'login' %}">Увійти</a></p>
+        <p>Немає акаунту? <a href="{% url 'register' %}">Зареєструватися</a></p>
     </main>
 </body>
 </html>

@@ -1,0 +1,78 @@
+body.auth-page {
+    
+    background: url("/static/books/images/chuttersnap-GzYpmRRfAXk-unsplash.jpg") center center no-repeat;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  
+  .auth-container {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 2rem 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 360px;
+  }
+  
+  .auth-container h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .auth-form .form-field {
+    margin-bottom: 1rem;
+  }
+  
+  .auth-form label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+    color: #444;
+  }
+  
+  .auth-form input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .auth-form .btn-save {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #6b4f4f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .auth-form .btn-save:hover {
+    background-color: #5a3e3e;
+  }
+  
+  .auth-container p {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .auth-container a {
+    color: #6b4f4f;
+    text-decoration: none;
+  }
+  
+  .auth-container a:hover {
+    text-decoration: underline;
+  }
